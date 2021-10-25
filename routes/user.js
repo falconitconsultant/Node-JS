@@ -9,6 +9,7 @@ const {
   login,
   loggedIn,
   logout,
+  forgetPassword,
 } = require("../controllers/user");
 const passport = require("passport");
 require("../utils/passportConfig")(passport);
@@ -21,6 +22,7 @@ router.post("/register", uploadUsers.single("picture"), register);
 router.post("/login", login);
 router.get("/loggedin", checkAuth, loggedIn);
 router.delete("/logout", logout);
+router.post("/forgetpassword", forgetPassword);
 // google auth routes 1st one redirects users to google  2nd one sends the response
 router.get(
   "/auth/google",
