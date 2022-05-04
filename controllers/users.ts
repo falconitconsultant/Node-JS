@@ -2,16 +2,18 @@
  * User CRUD controllers
  * @author Yousuf Kalim
  */
+export {};
+import { Request, Response } from "express";
 const Users = require("../models/Users");
 const bcrypt = require("bcryptjs");
-const bcryptSalt = process.env.BCRYPT_SALT || 10;
+const bcryptSalt: any = process.env.BCRYPT_SALT || 10;
 
 /**
  * Create User - Signup
  * @param {object} req
  * @param {object} res
  */
-exports.create = async (req, res) => {
+exports.create = async (req: any, res: any) => {
   try {
     let { email, password } = req.body; // Getting required fields from body
     const existingUser = await Users.findOne({ email }); // Finding already existing user
@@ -47,7 +49,7 @@ exports.create = async (req, res) => {
  * @param {object} req
  * @param {object} res
  */
-exports.getAll = async (req, res) => {
+exports.getAll = async (req: Request, res: Response) => {
   try {
     const users = await Users.find(); // Finding all the users from db
     res.json({ success: true, users }); // Success
@@ -63,7 +65,7 @@ exports.getAll = async (req, res) => {
  * @param {object} req
  * @param {object} res
  */
-exports.getById = async (req, res) => {
+exports.getById = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId; // Getting user id from URL parameter
     const user = await Users.findById(userId); // Finding user by id
@@ -80,7 +82,7 @@ exports.getById = async (req, res) => {
  * @param {object} req
  * @param {object} res
  */
-exports.update = async (req, res) => {
+exports.update = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId; // Getting user id from URL parameter
 
@@ -106,7 +108,7 @@ exports.update = async (req, res) => {
  * @param {object} req
  * @param {object} res
  */
-exports.delete = async (req, res) => {
+exports.delete = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId; // Getting user id from URL parameter
     const user = await Users.findByIdAndDelete(userId); // Deleting the user

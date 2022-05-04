@@ -13,7 +13,7 @@ const sender_password = process.env.MAILER_PASSWORD;
  * @param {string} password
  * @return {void}
  */
-exports.sendEmail = (email, password) => {
+exports.sendEmail = (email: any, password: any) => {
   return new Promise((resolve, reject) => {
     // Sender mail server config
     var transporter = nodemailer.createTransport({
@@ -33,7 +33,7 @@ exports.sendEmail = (email, password) => {
     };
 
     // Sending email
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function (error: any, info: any) {
       if (error) {
         // Error
         reject(error);

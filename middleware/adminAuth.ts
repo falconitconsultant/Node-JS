@@ -2,11 +2,13 @@
  * Check auth middleware
  * @author Yousuf Kalim
  */
+export {};
+import { NextFunction } from "express";
 const jwt = require("jsonwebtoken");
 const tokenSecret = process.env.JWT_SECRET;
 
 // Check auth
-exports.checkAuth = (req, res, next) => {
+exports.checkAdminAuth = (req: any, res: any, next: NextFunction) => {
   // Get token from Header
   const header = req.get("Authorization");
 
@@ -22,7 +24,8 @@ exports.checkAuth = (req, res, next) => {
     // Decrypting token
     const token = header.split(" ")[1];
     const decoded = jwt.verify(token, tokenSecret);
-    req.user = decoded.user;
+    req.admin = decoded.admin;
+    req.token = token;
 
     // If user authenticated
     res.set(

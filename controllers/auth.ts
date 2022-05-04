@@ -2,11 +2,13 @@
  * User auth controllers
  * @author Yousuf Kalim
  */
+export {};
+import { Request, Response } from "express";
 const Users = require("../models/Users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { sendEmail } = require("../utils/sendEmail");
-const bcryptSalt = process.env.BCRYPT_SALT || 10;
+const bcryptSalt: any = process.env.BCRYPT_SALT || 10;
 const tokenSecret = process.env.JWT_SECRET;
 
 /**
@@ -14,7 +16,7 @@ const tokenSecret = process.env.JWT_SECRET;
  * @param {object} req
  * @param {object} res
  */
-exports.login = async (req, res) => {
+exports.login = async (req: Request, res: Response) => {
   try {
     // Getting email and password
     const { email, password } = req.body;
@@ -44,12 +46,17 @@ exports.login = async (req, res) => {
     const payload = { user };
 
     // Generating token
-    jwt.sign(payload, tokenSecret, { expiresIn: 360000 }, (err, token) => {
-      if (err) throw err;
+    jwt.sign(
+      payload,
+      tokenSecret,
+      { expiresIn: 360000 },
+      (err: any, token: any) => {
+        if (err) throw err;
 
-      // done
-      res.json({ success: true, user, token });
-    });
+        // done
+        res.json({ success: true, user, token });
+      }
+    );
   } catch (err) {
     // Error handling
     console.log("Error ----> ", err);
@@ -62,7 +69,7 @@ exports.login = async (req, res) => {
  * @param {object} req
  * @param {object} res
  */
-exports.changePassword = async (req, res) => {
+exports.changePassword = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const { oldPassword, newPassword, confirmPassword } = req.body;
@@ -108,7 +115,7 @@ exports.changePassword = async (req, res) => {
  * @param {object} req
  * @param {object} res
  */
-exports.forgot = async (req, res) => {
+exports.forgot = async (req: Request, res: Response) => {
   try {
     let { email } = req.params;
     let user = await Users.findOne({ email });
@@ -132,7 +139,7 @@ exports.forgot = async (req, res) => {
         // Done
         res.json({ success: true, message: "Email sent successfully" });
       })
-      .catch((err) => {
+      .catch((err: any) => {
         // Error handling
         console.log("Error ----> ", err);
         res
@@ -151,7 +158,7 @@ exports.forgot = async (req, res) => {
  * @param {object} req
  * @param {object} res
  */
-exports.confirmAuth = async (req, res) => {
+exports.confirmAuth = async (req: any, res: Response) => {
   // If user authenticated
   res.json({ success: true, user: req.user });
 };

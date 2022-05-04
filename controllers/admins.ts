@@ -2,18 +2,20 @@
  * Admin controllers
  * @author Yousuf Kalim
  */
+export {};
+import { Request, Response } from "express";
 const Admins = require("../models/Admins");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const tokenSecret = process.env.JWT_SECRET;
-const bcryptSalt = process.env.BCRYPT_SALT || 10;
+const bcryptSalt: any = process.env.BCRYPT_SALT || 10;
 
 /**
  * Create Admin - Signup
  * @param {object} req
  * @param {object} res
  */
-exports.register = async (req, res) => {
+exports.register = async (req: Request, res: Response) => {
   try {
     let { email, password, confirmPassword } = req.body; // Getting required fields from body
     const existingAdmin = await Admins.findOne({ email }); // Finding already existing user
@@ -50,7 +52,7 @@ exports.register = async (req, res) => {
  * @param {object} req
  * @param {object} res
  */
-exports.login = async (req, res) => {
+exports.login = async (req: Request, res: Response) => {
   try {
     // Getting email and password
     const { email, password } = req.body;
@@ -84,12 +86,17 @@ exports.login = async (req, res) => {
     const payload = { admin };
 
     // Generating token
-    jwt.sign(payload, tokenSecret, { expiresIn: 360000 }, (err, token) => {
-      if (err) throw err;
+    jwt.sign(
+      payload,
+      tokenSecret,
+      { expiresIn: 360000 },
+      (err: any, token: any) => {
+        if (err) throw err;
 
-      // done
-      res.json({ success: true, admin, token });
-    });
+        // done
+        res.json({ success: true, admin, token });
+      }
+    );
   } catch (err) {
     // Error handling
     console.log("Error ----> ", err);
@@ -102,7 +109,7 @@ exports.login = async (req, res) => {
  * @param {object} req
  * @param {object} res
  */
-exports.confirmAuth = async (req, res) => {
+exports.confirmAuth = async (req: any, res: any) => {
   // If user authenticated
   res.json({ success: true, admin: req.admin, token: req.token });
 };

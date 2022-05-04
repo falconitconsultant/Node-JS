@@ -7,7 +7,7 @@ const logger = require("morgan");
 const cors = require("cors");
 
 // Common Middleware
-module.exports = (app) => {
+module.exports = (app: any) => {
   app.use(cors({ origin: true })); // CORS (Cross Origin Policy) to restrict unknown requests
   app.use(logger("dev")); // Morgan - to log every request in console
   app.use(express.urlencoded({ extended: true })); // to get url encoded data from requests

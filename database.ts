@@ -2,6 +2,7 @@
  * Database connection
  * @author Yousuf Kalim
  */
+export {};
 const mongoose = require("mongoose");
 const db_url = process.env.MONGODB_URI;
 
@@ -19,6 +20,6 @@ mongoose
     ignoreUndefined: true,
   })
   .then(() => console.log("We are connected with database :)")) //Success
-  .catch((err) => {
+  .catch((err: any) => {
     console.log("DB Connection Error :( -------> ", err); //Failed
   });

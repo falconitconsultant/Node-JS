@@ -2,6 +2,7 @@
  * All the validation
  * @author Yousuf Kalim
  */
+import { Request, Response, NextFunction } from "express";
 const { check, validationResult } = require("express-validator");
 
 /*
@@ -76,7 +77,7 @@ Result
  * @param {object} res
  * @param {*} next
  */
-exports.isValidated = (req, res, next) => {
+exports.isValidated = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req); // Validating the request by previous middleware's strategy
   if (!errors.isEmpty()) {
     // On error

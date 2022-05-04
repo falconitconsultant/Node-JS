@@ -1,3 +1,4 @@
+export {};
 const router = require("express").Router();
 const { register, login, confirmAuth } = require("../controllers/admins");
 const { checkAdminAuth } = require("../middleware/adminAuth");

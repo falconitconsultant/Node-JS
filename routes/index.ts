@@ -2,6 +2,7 @@
  * All api routes handles here
  * @author Yousuf Kalim
  */
+export {};
 const router = require("express").Router();
 
 // Parent Routes
